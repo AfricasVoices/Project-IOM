@@ -1,0 +1,126 @@
+{
+  "RawDataSources": [
+    {
+      "SourceType": "GCloudBucket",
+      "SurveyFlowURLs": [
+        "gs://avf-project-datasets/2019/WorldBank-PLR/csap_demog.jsonl",
+        "gs://avf-project-datasets/2019/WorldBank-PLR/csap_s02_demog.jsonl",
+        "gs://avf-project-datasets/2019/WorldBank-PLR/csap_s03_demog.jsonl",
+        "gs://avf-project-datasets/2019/WorldBank-PLR/csap_s04_demog.jsonl"
+      ]
+    },
+    {
+      "SourceType": "RapidPro",
+      "Domain": "textit.in",
+      "TokenFileURL": "gs://avf-credentials/csap-secondary-text-it-token.txt",
+      "ContactsFileName": "csap_secondary_contacts",
+      "ActivationFlowNames": [
+        "csap_s06e01_activation",
+        "csap_s06e02_activation"
+      ],
+      "SurveyFlowNames": [
+        "csap_s05_demog",
+        "csap_s06_demog"
+      ],
+      "TestContactUUIDs": [
+        "61e74e0b-1b4a-41fe-9e78-712f2a048f4e",
+        "d4a80e64-c46a-492d-9b71-bae5fa54a741",
+        "84b4d75d-4c8e-4403-994c-05c1377700f8",
+        "83ce764b-5c80-4d56-9d0f-84435570141d"
+      ]
+    }
+  ],
+  "PhoneNumberUuidTable": {
+    "FirebaseCredentialsFileURL": "gs://avf-credentials/avf-id-infrastructure-firebase-adminsdk-6xps8-b9173f2bfd.json",
+    "TableName": "ADSS"
+  },
+  "RapidProKeyRemappings": [
+    {"RapidProKey": "avf_phone_id", "PipelineKey": "uid"},
+
+    {"RapidProKey": "Rqa_S06E01 (Text) - csap_s06e01_activation", "PipelineKey": "rqa_s06e01_raw", "IsActivationMessage": true},
+    {"RapidProKey": "Rqa_S06E01 (Run ID) - csap_s06e01_activation", "PipelineKey": "rqa_s06e01_run_id"},
+    {"RapidProKey": "Rqa_S06E01 (Time) - csap_s06e01_activation", "PipelineKey": "sent_on"},
+    {"RapidProKey": "Rqa_S06E02 (Text) - csap_s06e02_activation", "PipelineKey": "rqa_s06e02_raw", "IsActivationMessage": true},
+    {"RapidProKey": "Rqa_S06E02 (Run ID) - csap_s06e02_activation", "PipelineKey": "rqa_s06e02_run_id"},
+    {"RapidProKey": "Rqa_S06E02 (Time) - csap_s06e02_activation", "PipelineKey": "sent_on"},
+
+    {"RapidProKey": "Mog_Sub_District (Text) - csap_demog", "PipelineKey": "location_raw"},
+    {"RapidProKey": "Mog_Sub_District (Time) - csap_demog", "PipelineKey": "location_time"},
+    {"RapidProKey": "Gender (Text) - csap_demog", "PipelineKey": "gender_raw"},
+    {"RapidProKey": "Gender (Time) - csap_demog", "PipelineKey": "gender_time"},
+    {"RapidProKey": "Age (Text) - csap_demog", "PipelineKey": "age_raw"},
+    {"RapidProKey": "Age (Time) - csap_demog", "PipelineKey": "age_time"},
+    {"RapidProKey": "Recently_Displaced (Text) - csap_demog", "PipelineKey": "recently_displaced_raw"},
+    {"RapidProKey": "Recently_Displaced (Time) - csap_demog", "PipelineKey": "recently_displaced_time"},
+    {"RapidProKey": "Idp_Camp (Text) - csap_demog", "PipelineKey": "in_idp_camp_raw"},
+    {"RapidProKey": "Idp_Camp (Time) - csap_demog", "PipelineKey": "in_idp_camp_time"},
+
+    {"RapidProKey": "District (Text) - csap_s02_demog", "PipelineKey": "location_raw"},
+    {"RapidProKey": "District (Time) - csap_s02_demog", "PipelineKey": "location_time"},
+    {"RapidProKey": "Gender (Text) - csap_s02_demog", "PipelineKey": "gender_raw"},
+    {"RapidProKey": "Gender (Time) - csap_s02_demog", "PipelineKey": "gender_time"},
+    {"RapidProKey": "Age (Text) - csap_s02_demog", "PipelineKey": "age_raw"},
+    {"RapidProKey": "Age (Time) - csap_s02_demog", "PipelineKey": "age_time"},
+    {"RapidProKey": "Recently_Displaced (Text) - csap_s02_demog", "PipelineKey": "recently_displaced_raw"},
+    {"RapidProKey": "Recently_Displaced (Time) - csap_s02_demog", "PipelineKey": "recently_displaced_time"},
+    {"RapidProKey": "Idp_Camp (Text) - csap_s02_demog", "PipelineKey": "in_idp_camp_raw"},
+    {"RapidProKey": "Idp_Camp (Time) - csap_s02_demog", "PipelineKey": "in_idp_camp_time"},
+
+    {"RapidProKey": "District (Text) - csap_s03_demog", "PipelineKey": "location_raw"},
+    {"RapidProKey": "District (Time) - csap_s03_demog", "PipelineKey": "location_time"},
+    {"RapidProKey": "Gender (Text) - csap_s03_demog", "PipelineKey": "gender_raw"},
+    {"RapidProKey": "Gender (Time) - csap_s03_demog", "PipelineKey": "gender_time"},
+    {"RapidProKey": "Age (Text) - csap_s03_demog", "PipelineKey": "age_raw"},
+    {"RapidProKey": "Age (Time) - csap_s03_demog", "PipelineKey": "age_time"},
+    {"RapidProKey": "Recently_Displaced (Text) - csap_s03_demog", "PipelineKey": "recently_displaced_raw"},
+    {"RapidProKey": "Recently_Displaced (Time) - csap_s03_demog", "PipelineKey": "recently_displaced_time"},
+    {"RapidProKey": "Idp_Camp (Text) - csap_s03_demog", "PipelineKey": "in_idp_camp_raw"},
+    {"RapidProKey": "Idp_Camp (Time) - csap_s03_demog", "PipelineKey": "in_idp_camp_time"},
+
+    {"RapidProKey": "District (Text) - csap_s04_demog", "PipelineKey": "location_raw"},
+    {"RapidProKey": "District (Time) - csap_s04_demog", "PipelineKey": "location_time"},
+    {"RapidProKey": "Gender (Text) - csap_s04_demog", "PipelineKey": "gender_raw"},
+    {"RapidProKey": "Gender (Time) - csap_s04_demog", "PipelineKey": "gender_time"},
+    {"RapidProKey": "Age (Text) - csap_s04_demog", "PipelineKey": "age_raw"},
+    {"RapidProKey": "Age (Time) - csap_s04_demog", "PipelineKey": "age_time"},
+    {"RapidProKey": "Recently_Displaced (Text) - csap_s04_demog", "PipelineKey": "recently_displaced_raw"},
+    {"RapidProKey": "Recently_Displaced (Time) - csap_s04_demog", "PipelineKey": "recently_displaced_time"},
+    {"RapidProKey": "Idp_Camp (Text) - csap_s04_demog", "PipelineKey": "in_idp_camp_raw"},
+    {"RapidProKey": "Idp_Camp (Time) - csap_s04_demog", "PipelineKey": "in_idp_camp_time"},
+
+    {"RapidProKey": "District (Text) - csap_s05_demog", "PipelineKey": "location_raw"},
+    {"RapidProKey": "District (Time) - csap_s05_demog", "PipelineKey": "location_time"},
+    {"RapidProKey": "Gender (Text) - csap_s05_demog", "PipelineKey": "gender_raw"},
+    {"RapidProKey": "Gender (Time) - csap_s05_demog", "PipelineKey": "gender_time"},
+    {"RapidProKey": "Age (Text) - csap_s05_demog", "PipelineKey": "age_raw"},
+    {"RapidProKey": "Age (Time) - csap_s05_demog", "PipelineKey": "age_time"},
+    {"RapidProKey": "Recently_Displaced (Text) - csap_s05_demog", "PipelineKey": "recently_displaced_raw"},
+    {"RapidProKey": "Recently_Displaced (Time) - csap_s05_demog", "PipelineKey": "recently_displaced_time"},
+    {"RapidProKey": "Idp_Camp (Text) - csap_s05_demog", "PipelineKey": "in_idp_camp_raw"},
+    {"RapidProKey": "Idp_Camp (Time) - csap_s05_demog", "PipelineKey": "in_idp_camp_time"},
+    
+    {"RapidProKey": "District (Text) - csap_s06_demog", "PipelineKey": "location_raw"},
+    {"RapidProKey": "District (Time) - csap_s06_demog", "PipelineKey": "location_time"},
+    {"RapidProKey": "Gender (Text) - csap_s06_demog", "PipelineKey": "gender_raw"},
+    {"RapidProKey": "Gender (Time) - csap_s06_demog", "PipelineKey": "gender_time"},
+    {"RapidProKey": "Age (Text) - csap_s06_demog", "PipelineKey": "age_raw"},
+    {"RapidProKey": "Age (Time) - csap_s06_demog", "PipelineKey": "age_time"},
+    {"RapidProKey": "Recently_Displaced (Text) - csap_s06_demog", "PipelineKey": "recently_displaced_raw"},
+    {"RapidProKey": "Recently_Displaced (Time) - csap_s06_demog", "PipelineKey": "recently_displaced_time"},
+    {"RapidProKey": "Idp_Camp (Text) - csap_s06_demog", "PipelineKey": "in_idp_camp_raw"},
+    {"RapidProKey": "Idp_Camp (Time) - csap_s06_demog", "PipelineKey": "in_idp_camp_time"}
+  ],
+  "ProjectStartDate": "2000-01-01T00:00:00+03:00",
+  "ProjectEndDate": "2100-01-01T00:00:00+03:00",
+  "FilterTestMessages": true,
+  "MoveWSMessages": false,
+  "DriveUpload": {
+    "DriveCredentialsFileURL": "gs://avf-credentials/pipeline-runner-service-acct-avf-data-core-64cc71459fe7.json",
+    "ProductionUploadPath": "iom_analysis_outputs/csap_s06_production.csv",
+    "MessagesUploadPath": "iom_analysis_outputs/csap_s06_messages.csv",
+    "IndividualsUploadPath": "iom_analysis_outputs/csap_s06_individuals.csv",
+    "AnalysisGraphsDir": "iom_analysis_outputs/csap_s06_graphs"
+  },
+  "MemoryProfileUploadURLPrefix": "gs://avf-pipeline-logs-performance-nearline/2020/IOM/memory-",
+  "DataArchiveUploadURLPrefix": "gs://pipeline-execution-backup-archive/2020/IOM/data-"
+}
