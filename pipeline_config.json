@@ -15,8 +15,7 @@
       "TokenFileURL": "gs://avf-credentials/csap-secondary-text-it-token.txt",
       "ContactsFileName": "csap_secondary_contacts",
       "ActivationFlowNames": [
-        "csap_s06e01_activation",
-        "csap_s06e02_activation"
+        "csap_s06e01_activation"
       ],
       "SurveyFlowNames": [
         "csap_s05_demog",
