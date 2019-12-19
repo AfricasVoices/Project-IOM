@@ -67,4 +67,4 @@ ADD src /app/src
 ADD fetch_raw_data.py /app
 ADD generate_outputs.py /app
 #ADD upload_logs.py /app
-#ADD generate_analysis_graphs.py /app
+ADD generate_analysis_graphs.py /app
