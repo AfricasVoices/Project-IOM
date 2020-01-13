@@ -14,6 +14,8 @@ from src.lib.code_schemes import CodeSchemes
 Logger.set_project_name("IOM")
 log = Logger(__name__)
 
+IOM_LOCATIONS = {"cabudwaaq", "gaalkacyo", "dhuusamarreeb"}
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generates lists of phone numbers of previous CSAP respondents who  "
                                                  "were labelled as living in ")
@@ -32,8 +34,6 @@ if __name__ == "__main__":
     google_cloud_credentials_file_path = args.google_cloud_credentials_file_path
     pipeline_configuration_file_path = args.pipeline_configuration_file_path
     traced_data_paths = args.traced_data_paths
-
-    iom_locations = {"cabudwaaq", "gaalkacyo", "dhuusamarreeb"}
 
     log.info("Loading Pipeline Configuration File...")
     with open(pipeline_configuration_file_path) as f:
@@ -61,13 +61,13 @@ if __name__ == "__main__":
         log.info(f"Loaded {len(data)} traced data objects")
 
         # Search the TracedData for contacts from relevant locations
-        log.info(f"Searching for participants from the IOM target locations ({iom_locations})")
+        log.info(f"Searching for participants from the IOM target locations ({IOM_LOCATIONS})")
         file_uuids = set()
         for td in data:
             if td["district_coded"] == Codes.STOP:
                 continue
 
-            if CodeSchemes.SOMALIA_DISTRICT.get_code_with_code_id(td["district_coded"]["CodeID"]).string_value in iom_locations:
+            if CodeSchemes.SOMALIA_DISTRICT.get_code_with_code_id(td["district_coded"]["CodeID"]).string_value in IOM_LOCATIONS:
                 file_uuids.add(td["uid"])
         uuids.update(file_uuids)
         log.info(f"Found {len(file_uuids)} contacts in the IOM target locations (running total: {len(uuids)})")
