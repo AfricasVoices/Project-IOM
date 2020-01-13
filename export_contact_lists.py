@@ -28,12 +28,16 @@ if __name__ == "__main__":
     parser.add_argument("traced_data_paths", metavar="traced-data-paths", nargs="+",
                         help="Paths to the traced data files (either messages or individuals) to extract phone "
                              "numbers from")
+    parser.add_argument("csv_output_file_path", metavar="csv-output-file-path",
+                        help="Path to a CSV file to write the contacts from the districts of interest to. "
+                             "Exported file is in a format suitable for direct upload to Rapid Pro")
 
     args = parser.parse_args()
 
     google_cloud_credentials_file_path = args.google_cloud_credentials_file_path
     pipeline_configuration_file_path = args.pipeline_configuration_file_path
     traced_data_paths = args.traced_data_paths
+    csv_output_file_path = args.csv_output_file_path
 
     log.info("Loading Pipeline Configuration File...")
     with open(pipeline_configuration_file_path) as f:
@@ -78,9 +82,8 @@ if __name__ == "__main__":
     phone_numbers = {f"+{uuid_phone_number_lut[uuid]}" for uuid in uuids}
 
     # Export CSVs
-    csv_path = 'test.csv'
-    log.warning(f"Exporting {len(phone_numbers)} phone numbers to {csv_path}...")
-    with open(csv_path, "w") as f:
+    log.warning(f"Exporting {len(phone_numbers)} phone numbers to {csv_output_file_path}...")
+    with open(csv_output_file_path, "w") as f:
         writer = csv.DictWriter(f, fieldnames=["URN:Tel", "Name"], lineterminator="\n")
         writer.writeheader()
 
@@ -88,4 +91,4 @@ if __name__ == "__main__":
             writer.writerow({
                 "URN:Tel": n
             })
-        log.info(f"Wrote {len(phone_numbers)} contacts to {csv_path}")
+        log.info(f"Wrote {len(phone_numbers)} contacts to {csv_output_file_path}")
