@@ -20,20 +20,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generates lists of phone numbers of previous CSAP respondents who  "
                                                  "were labelled as living in ")
 
-    parser.add_argument("traced_data_path", metavar="traced-data-path",
-                        help="Path to the traced data file (either messages or individuals) to extract phone "
-                             "numbers from")
     parser.add_argument("google_cloud_credentials_file_path", metavar="google-cloud-credentials-file-path",
                         help="Path to a Google Cloud service account credentials file to use to access the "
                              "credentials bucket")
     parser.add_argument("pipeline_configuration_file_path", metavar="pipeline-configuration-file",
                         help="Path to the pipeline configuration json file")
+    parser.add_argument("traced_data_paths", metavar="traced-data-paths", nargs="+",
+                        help="Paths to the traced data files (either messages or individuals) to extract phone "
+                             "numbers from")
 
     args = parser.parse_args()
 
-    traced_data_path = args.traced_data_path
     google_cloud_credentials_file_path = args.google_cloud_credentials_file_path
     pipeline_configuration_file_path = args.pipeline_configuration_file_path
+    traced_data_paths = args.traced_data_paths
 
     iom_locations = {"cabudwaaq", "gaalkacyo", "dhuusamarreeb"}
 
@@ -55,24 +55,27 @@ if __name__ == "__main__":
     log.info("Initialised the Firestore UUID table")
 
     # Load the traced data
-    log.info(f"Loading previous traced data from file '{traced_data_path}'...")
-    with open(traced_data_path) as f:
-        data = TracedDataJsonIO.import_jsonl_to_traced_data_iterable(f)
-    log.info(f"Loaded {len(data)} traced data objects")
-
-    # Search the TracedData for contacts from relevant locations
     uuids = set()
-    log.info(f"Searching for participants from the IOM target locations ({iom_locations})")
-    for td in data:
-        if td["district_coded"] == Codes.STOP:
-            continue
+    for path in traced_data_paths:
+        log.info(f"Loading previous traced data from file '{path}'...")
+        with open(path) as f:
+            data = TracedDataJsonIO.import_jsonl_to_traced_data_iterable(f)
+        log.info(f"Loaded {len(data)} traced data objects")
 
-        if CodeSchemes.SOMALIA_DISTRICT.get_code_with_code_id(td["district_coded"]["CodeID"]).string_value in iom_locations:
-            uuids.add(td["uid"])
-    log.info(f"Found {len(uuids)} contacts in the IOM target locations")
+        # Search the TracedData for contacts from relevant locations
+        log.info(f"Searching for participants from the IOM target locations ({iom_locations})")
+        file_uuids = set()
+        for td in data:
+            if td["district_coded"] == Codes.STOP:
+                continue
+
+            if CodeSchemes.SOMALIA_DISTRICT.get_code_with_code_id(td["district_coded"]["CodeID"]).string_value in iom_locations:
+                file_uuids.add(td["uid"])
+        uuids.update(file_uuids)
+        log.info(f"Found {len(file_uuids)} contacts in the IOM target locations (running total: {len(uuids)})")
 
     # Convert the uuids to phone numbers
-    log.info("Converting the uuids to phone numbers...")
+    log.info(f"Converting {len(uuids)} uuids to phone numbers...")
     uuid_phone_number_lut = phone_number_uuid_table.uuid_to_data_batch(uuids)
     phone_numbers = {f"+{uuid_phone_number_lut[uuid]}" for uuid in uuids}
 
