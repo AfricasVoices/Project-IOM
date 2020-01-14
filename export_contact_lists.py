@@ -18,7 +18,7 @@ IOM_LOCATIONS = {"cabudwaaq", "gaalkacyo", "dhuusamarreeb"}
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generates lists of phone numbers of previous CSAP respondents who  "
-                                                 "were labelled as living in ")
+                                                 "were labelled as living in one of the IOM target districts")
 
     parser.add_argument("google_cloud_credentials_file_path", metavar="google-cloud-credentials-file-path",
                         help="Path to a Google Cloud service account credentials file to use to access the "
