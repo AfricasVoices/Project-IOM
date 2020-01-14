@@ -56,9 +56,9 @@ if __name__ == "__main__":
     )
     log.info("Initialised the Firestore UUID table")
 
-    # Load the traced data
     uuids = set()
     for path in traced_data_paths:
+        # Load the traced data
         log.info(f"Loading previous traced data from file '{path}'...")
         with open(path) as f:
             data = TracedDataJsonIO.import_jsonl_to_traced_data_iterable(f)
