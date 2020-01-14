@@ -81,7 +81,7 @@ if __name__ == "__main__":
     uuid_phone_number_lut = phone_number_uuid_table.uuid_to_data_batch(uuids)
     phone_numbers = {f"+{uuid_phone_number_lut[uuid]}" for uuid in uuids}
 
-    # Export CSVs
+    # Export contacts CSV
     log.warning(f"Exporting {len(phone_numbers)} phone numbers to {csv_output_file_path}...")
     with open(csv_output_file_path, "w") as f:
         writer = csv.DictWriter(f, fieldnames=["URN:Tel", "Name"], lineterminator="\n")
