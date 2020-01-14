@@ -64,7 +64,7 @@ if __name__ == "__main__":
             data = TracedDataJsonIO.import_jsonl_to_traced_data_iterable(f)
         log.info(f"Loaded {len(data)} traced data objects")
 
-        # Search the TracedData for contacts from relevant locations
+        # Search the TracedData for contacts from one of the relevant locations
         log.info(f"Searching for participants from the IOM target locations ({IOM_LOCATIONS})")
         file_uuids = set()
         for td in data:
