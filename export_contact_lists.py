@@ -3,6 +3,7 @@ import csv
 import json
 
 from core_data_modules.cleaners import Codes
+from core_data_modules.cleaners.codes import SomaliaCodes
 from core_data_modules.logging import Logger
 from core_data_modules.traced_data.io import TracedDataJsonIO
 from id_infrastructure.firestore_uuid_table import FirestoreUuidTable
@@ -14,7 +15,7 @@ from src.lib.code_schemes import CodeSchemes
 Logger.set_project_name("IOM")
 log = Logger(__name__)
 
-IOM_LOCATIONS = {"cabudwaaq", "gaalkacyo", "dhuusamarreeb"}
+IOM_LOCATIONS = {SomaliaCodes.CABUDWAAQ, SomaliaCodes.GAALKACYO, SomaliaCodes.DHUUSAMARREEB}
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generates lists of phone numbers of previous CSAP respondents who  "
