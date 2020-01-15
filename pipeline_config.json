@@ -1,12 +1,23 @@
 {
   "RawDataSources": [
     {
-      "SourceType": "GCloudBucket",
-      "SurveyFlowURLs": [
-        "gs://avf-project-datasets/2019/WorldBank-PLR/csap_demog.jsonl",
-        "gs://avf-project-datasets/2019/WorldBank-PLR/csap_s02_demog.jsonl",
-        "gs://avf-project-datasets/2019/WorldBank-PLR/csap_s03_demog.jsonl",
-        "gs://avf-project-datasets/2019/WorldBank-PLR/csap_s04_demog.jsonl"
+      "SourceType": "RapidPro",
+      "Domain": "textit.in",
+      "TokenFileURL": "gs://avf-credentials/csap-text-it-token.txt",
+      "ContactsFileName": "csap_contacts",
+      "ActivationFlowNames": [
+
+      ],
+      "SurveyFlowNames": [
+        "csap_demog",
+        "csap_s02_demog",
+        "csap_s03_demog"
+      ],
+      "TestContactUUIDs": [
+        "6f251195-5889-437a-a8b5-ad74b8e4eb62",
+        "ed65f87f-4805-42ad-9b66-27f34c81c4ff",
+        "e5b3d475-4e73-41a0-80a2-b39b28aad89c",
+        "856a55d8-9159-4970-bd22-ede3ae5f94e0"
       ]
     },
     {
@@ -18,6 +29,7 @@
         "csap_s06e01_activation"
       ],
       "SurveyFlowNames": [
+        "csap_s04_demog",
         "csap_s05_demog",
         "csap_s06_demog"
       ],
