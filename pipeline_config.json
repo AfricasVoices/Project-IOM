@@ -109,7 +109,7 @@
     {"RapidProKey": "Idp_Camp (Text) - csap_s06_demog", "PipelineKey": "in_idp_camp_raw"},
     {"RapidProKey": "Idp_Camp (Time) - csap_s06_demog", "PipelineKey": "in_idp_camp_time"}
   ],
-  "ProjectStartDate": "2000-01-01T00:00:00+03:00",
+  "ProjectStartDate": "2020-01-19T00:00:00+03:00",
   "ProjectEndDate": "2100-01-01T00:00:00+03:00",
   "FilterTestMessages": true,
   "MoveWSMessages": false,
