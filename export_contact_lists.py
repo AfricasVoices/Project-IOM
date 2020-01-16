@@ -3,6 +3,7 @@ import csv
 import json
 
 from core_data_modules.cleaners import Codes
+from core_data_modules.cleaners.codes import SomaliaCodes
 from core_data_modules.logging import Logger
 from core_data_modules.traced_data.io import TracedDataJsonIO
 from id_infrastructure.firestore_uuid_table import FirestoreUuidTable
@@ -14,7 +15,7 @@ from src.lib.code_schemes import CodeSchemes
 Logger.set_project_name("IOM")
 log = Logger(__name__)
 
-IOM_LOCATIONS = {"cabudwaaq", "gaalkacyo", "dhuusamarreeb"}
+IOM_DISTRICTS = {SomaliaCodes.CABUDWAAQ, SomaliaCodes.GAALKACYO, SomaliaCodes.DHUUSAMARREEB}
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generates lists of phone numbers of previous CSAP respondents who  "
@@ -57,6 +58,7 @@ if __name__ == "__main__":
     log.info("Initialised the Firestore UUID table")
 
     uuids = set()
+    district_counts = {district: 0 for district in IOM_DISTRICTS}
     for path in traced_data_paths:
         # Load the traced data
         log.info(f"Loading previous traced data from file '{path}'...")
@@ -65,16 +67,24 @@ if __name__ == "__main__":
         log.info(f"Loaded {len(data)} traced data objects")
 
         # Search the TracedData for contacts from one of the relevant locations
-        log.info(f"Searching for participants from the IOM target locations ({IOM_LOCATIONS})")
+        log.info(f"Searching for participants from the IOM target locations...")
         file_uuids = set()
+        file_district_counts = {district: 0 for district in IOM_DISTRICTS}
         for td in data:
             if td["district_coded"] == Codes.STOP:
                 continue
 
-            if CodeSchemes.SOMALIA_DISTRICT.get_code_with_code_id(td["district_coded"]["CodeID"]).string_value in IOM_LOCATIONS:
-                file_uuids.add(td["uid"])
-        uuids.update(file_uuids)
-        log.info(f"Found {len(file_uuids)} contacts in the IOM target locations (running total: {len(uuids)})")
+            district = CodeSchemes.SOMALIA_DISTRICT.get_code_with_code_id(td["district_coded"]["CodeID"]).string_value
+            if district in IOM_DISTRICTS:
+                if td["uid"] not in file_uuids:
+                    file_district_counts[district] += 1
+                    file_uuids.add(td["uid"])
+                if td["uid"] not in uuids:
+                    district_counts[district] += 1
+                    uuids.add(td["uid"])
+        log.info(f"Found {len(file_uuids)} contacts in the IOM target locations "
+                 f"(per-district counts: {file_district_counts})")
+        log.info(f"Running total: {len(uuids)} (per-district counts: {district_counts})")
 
     # Convert the uuids to phone numbers
     log.info(f"Converting {len(uuids)} uuids to phone numbers...")
