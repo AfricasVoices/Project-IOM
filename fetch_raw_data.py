@@ -91,7 +91,7 @@ def fetch_from_rapid_pro(user, google_cloud_credentials_file_path, raw_data_dir,
                     raw_runs = [Run.deserialize(run_json) for run_json in json.load(raw_runs_file)]
                 log.info(f"Loaded {len(raw_runs)} runs")
                 raw_runs = rapid_pro.update_raw_runs_with_latest_modified(
-                    flow_id, raw_runs, raw_export_log_file=raw_runs_log_file)
+                    flow_id, raw_runs, raw_export_log_file=raw_runs_log_file, ignore_archives=True)
             except FileNotFoundError:
                 log.info(f"File '{raw_runs_path}' not found, will fetch all runs from the Rapid Pro server for flow '{flow}'")
                 raw_runs = rapid_pro.get_raw_runs_for_flow_id(flow_id, raw_export_log_file=raw_runs_log_file)
