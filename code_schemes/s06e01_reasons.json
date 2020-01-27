@@ -3,7 +3,166 @@
   "Name": "S06E01 Reasons",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-8c505d22",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, reconciliation",
+      "NumericValue": 1,
+      "StringValue": "aspire_reconciliation",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-d9993104",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, adherence to religious teachings",
+      "NumericValue": 2,
+      "StringValue": "aspire_adherence_to_religious_teachings",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-dc4d1bb1",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, uphold formal law",
+      "NumericValue": 3,
+      "StringValue": "aspire_uphold_formal_law",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-f1c3a812",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, promote understanding",
+      "NumericValue": 4,
+      "StringValue": "aspire_promote_understanding",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-2e3e57a2",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, stop clannism",
+      "NumericValue": 5,
+      "StringValue": "aspire_stop_clannism",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-3cd8c811",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, understand the cause of conflict",
+      "NumericValue": 6,
+      "StringValue": "aspire_understand_the_cause_of_conflict",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-1486b3bb",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, communication/dialogue",
+      "NumericValue": 7,
+      "StringValue": "aspire_communication_dialogue",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-546c132d",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, compromise",
+      "NumericValue": 8,
+      "StringValue": "aspire_compromise",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-0853ba07",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, mediation",
+      "NumericValue": 9,
+      "StringValue": "aspire_mediation",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-b1cbc8be",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, good leadership",
+      "NumericValue": 10,
+      "StringValue": "aspire_good_leadership",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-2cee441e",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, unity",
+      "NumericValue": 11,
+      "StringValue": "aspire_unity",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-ee5e67e8",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, fair resolution",
+      "NumericValue": 12,
+      "StringValue": "aspire_fair_resolution",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-2e96df22",
+      "CodeType": "Normal",
+      "DisplayText": "aspire, other",
+      "NumericValue": 13,
+      "StringValue": "aspire_other",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-f0d7a982",
+      "CodeType": "Normal",
+      "DisplayText": "current, communication/dialogue",
+      "NumericValue": 14,
+      "StringValue": "current_communication_dialogue",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-3bafef62",
+      "CodeType": "Normal",
+      "DisplayText": "current, compromise",
+      "NumericValue": 15,
+      "StringValue": "current_compromise",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-25800b05",
+      "CodeType": "Normal",
+      "DisplayText": "current, adherence to religious teachings",
+      "NumericValue": 16,
+      "StringValue": "current_adherence_to_religious_teachings",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-965a47e8",
+      "CodeType": "Normal",
+      "DisplayText": "current, by the elders",
+      "NumericValue": 17,
+      "StringValue": "current_by_the_elders",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-e7834f26",
+      "CodeType": "Normal",
+      "DisplayText": "current, on a clan basis",
+      "NumericValue": 18,
+      "StringValue": "current_on_a_clan_basis",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-46806f00",
+      "CodeType": "Normal",
+      "DisplayText": "current, by the local authority",
+      "NumericValue": 19,
+      "StringValue": "current_by_the_local_authority",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-87c6fd77",
+      "CodeType": "Normal",
+      "DisplayText": "current, other",
+      "NumericValue": 20,
+      "StringValue": "current_other",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
