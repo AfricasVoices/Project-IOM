@@ -14,7 +14,6 @@ from storage.google_drive import drive_client_wrapper
 from src.lib import PipelineConfiguration
 from src.lib.pipeline_configuration import CodingModes
 
-Logger.set_project_name("IOM")
 log = Logger(__name__)
 
 IMG_SCALE_FACTOR = 10  # Increase this to increase the resolution of the outputted PNGs
@@ -51,6 +50,8 @@ if __name__ == "__main__":
     log.info("Loading Pipeline Configuration File...")
     with open(pipeline_configuration_file_path) as f:
         pipeline_configuration = PipelineConfiguration.from_configuration_file(f)
+    Logger.set_project_name(pipeline_configuration.pipeline_name)
+    log.debug(f"Pipeline name is {pipeline_configuration.pipeline_name}")
 
     if pipeline_configuration.drive_upload is not None:
         log.info(f"Downloading Google Drive service account credentials...")

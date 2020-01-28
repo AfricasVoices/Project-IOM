@@ -20,7 +20,6 @@ from temba_client.v2 import Contact, Run
 from src.lib import PipelineConfiguration, CodeSchemes
 from src.lib.pipeline_configuration import RapidProSource, GCloudBucketSource, ShaqadoonCSVSource
 
-Logger.set_project_name("IOM")
 log = Logger(__name__)
 
 
@@ -198,6 +197,8 @@ def main(user, google_cloud_credentials_file_path, pipeline_configuration_file_p
     log.info("Loading Pipeline Configuration File...")
     with open(pipeline_configuration_file_path) as f:
         pipeline_configuration = PipelineConfiguration.from_configuration_file(f)
+    Logger.set_project_name(pipeline_configuration.pipeline_name)
+    log.debug(f"Pipeline name is {pipeline_configuration.pipeline_name}")
 
     log.info("Downloading Firestore UUID Table credentials...")
     firestore_uuid_table_credentials = json.loads(google_cloud_utils.download_blob_to_string(
