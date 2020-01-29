@@ -228,6 +228,37 @@ class PipelineConfiguration(object):
                        )
                    ],
                    ws_code=CodeSchemes.WS_CORRECT_DATASET.get_code_with_match_value("in idp camp"),
+                   raw_field_fold_strategy=FoldStrategies.assert_equal),
+
+        CodingPlan(raw_field="have_voice_raw",
+                   time_field="have_voice_time",
+                   coda_filename="have_voice.json",
+                   coding_configurations=[
+                       CodingConfiguration(
+                           coding_mode=CodingModes.SINGLE,
+                           code_scheme=CodeSchemes.HAVE_VOICE,
+                           cleaner=somali.DemographicCleaner.clean_yes_no,
+                           coded_field="have_voice_coded",
+                           analysis_file_key="have_voice",
+                           fold_strategy=FoldStrategies.assert_label_ids_equal
+                       )
+                   ],
+                   ws_code=CodeSchemes.WS_CORRECT_DATASET.get_code_with_match_value("have voice"),
+                   raw_field_fold_strategy=FoldStrategies.assert_equal),
+
+        CodingPlan(raw_field="suggestions_raw",
+                   time_field="suggestions_time",
+                   coda_filename="suggestions.json",
+                   coding_configurations=[
+                       CodingConfiguration(
+                           coding_mode=CodingModes.MULTIPLE,
+                           code_scheme=CodeSchemes.SUGGESTIONS,
+                           coded_field="suggestions_coded",
+                           analysis_file_key="suggestions_",
+                           fold_strategy=lambda x, y: FoldStrategies.list_of_labels(CodeSchemes.SUGGESTIONS, x, y)
+                       )
+                   ],
+                   ws_code=CodeSchemes.WS_CORRECT_DATASET.get_code_with_match_value("suggestions"),
                    raw_field_fold_strategy=FoldStrategies.assert_equal)
     ]
 
