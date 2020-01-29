@@ -5,14 +5,6 @@
   "Codes": [
 
     {
-      "CodeID": "code-02e44dff",
-      "CodeType": "Normal",
-      "DisplayText": "other",
-      "NumericValue": 9,
-      "StringValue": "other",
-      "VisibleInCoda": true
-    },
-    {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
       "ControlCode": "NA",
