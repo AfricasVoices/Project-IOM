@@ -46,6 +46,7 @@ CMD="pipenv run $PROFILE_CPU_CMD python -u fetch_raw_data.py \
     /data/pipeline-configuration.json /data/Raw\ Data
 "
 container="$(docker container create ${SYS_PTRACE_CAPABILITY} -w /app "$IMAGE_NAME" /bin/bash -c "$CMD")"
+echo "Created container $container"
 container_short_id=${container:0:7}
 
 # Copy input data into the container
