@@ -66,46 +66,67 @@ CMD="pipenv run $PROFILE_CPU_CMD $PROFILE_MEMORY_CMD python -u generate_outputs.
     /data/output-messages.csv /data/output-individuals.csv /data/output-production.csv \
 "
 container="$(docker container create ${SYS_PTRACE_CAPABILITY} -w /app "$IMAGE_NAME" /bin/bash -c "$CMD")"
+echo "Created container $container"
+container_short_id=${container:0:7}
 
 # Copy input data into the container
+echo "Copying $INPUT_PIPELINE_CONFIGURATION -> $container_short_id:/data/pipeline_configuration.json"
 docker cp "$INPUT_PIPELINE_CONFIGURATION" "$container:/data/pipeline_configuration.json"
+
+echo "Copying $INPUT_GOOGLE_CLOUD_CREDENTIALS -> $container_short_id:/credentials/google-cloud-credentials.json"
 docker cp "$INPUT_GOOGLE_CLOUD_CREDENTIALS" "$container:/credentials/google-cloud-credentials.json"
+
+echo "Copying $INPUT_RAW_DATA_DIR -> $container_short_id:/data/raw-data"
 docker cp "$INPUT_RAW_DATA_DIR" "$container:/data/raw-data"
+
 if [[ -d "$PREV_CODED_DIR" ]]; then
+    echo "Copying $PREV_CODED_DIR -> $container_short_id:/data/prev-coded"
     docker cp "$PREV_CODED_DIR" "$container:/data/prev-coded"
+else
+    echo "WARNING: prev-coded-dir $PREV_CODED_DIR not found, ignoring"  # TODO: Stop allowing this to be optional.
 fi
 
 # Run the container
+echo "Starting container $container_short_id"
 docker start -a -i "$container"
 
 # Copy the output data back out of the container
+echo "Copying $container_short_id:/data/output-messages.json -> $OUTPUT_MESSAGES_JSONL"
 mkdir -p "$(dirname "$OUTPUT_MESSAGES_JSONL")"
 docker cp "$container:/data/output-messages.jsonl" "$OUTPUT_MESSAGES_JSONL"
 
+echo "Copying $container_short_id:/data/output-individuals.jsonl -> $OUTPUT_INDIVIDUALS_JSONL"
 mkdir -p "$(dirname "$OUTPUT_INDIVIDUALS_JSONL")"
 docker cp "$container:/data/output-individuals.jsonl" "$OUTPUT_INDIVIDUALS_JSONL"
 
+echo "Copying $container_short_id:/data/output-icr/. -> $OUTPUT_ICR_DIR"
 mkdir -p "$OUTPUT_ICR_DIR"
 docker cp "$container:/data/output-icr/." "$OUTPUT_ICR_DIR"
 
+echo "Copying $container_short_id:/data/coded/. -> $OUTPUT_CODED_DIR"
 mkdir -p "$OUTPUT_CODED_DIR"
 docker cp "$container:/data/coded/." "$OUTPUT_CODED_DIR"
 
+echo "Copying $container_short_id:/data/output-production.csv -> $OUTPUT_PRODUCTION_CSV"
 mkdir -p "$(dirname "$OUTPUT_PRODUCTION_CSV")"
 docker cp "$container:/data/output-production.csv" "$OUTPUT_PRODUCTION_CSV"
 
+echo "Copying $container_short_id:/data/output-messages.csv -> $OUTPUT_MESSAGES_CSV"
 mkdir -p "$(dirname "$OUTPUT_MESSAGES_CSV")"
 docker cp "$container:/data/output-messages.csv" "$OUTPUT_MESSAGES_CSV"
 
+echo "Copying $container_short_id:/data/output-individuals.csv -> $OUTPUT_INDIVIDUALS_CSV"
 mkdir -p "$(dirname "$OUTPUT_INDIVIDUALS_CSV")"
 docker cp "$container:/data/output-individuals.csv" "$OUTPUT_INDIVIDUALS_CSV"
 
 if [[ "$PROFILE_CPU" = true ]]; then
+    echo "Copying $container_short_id:/data/cpu.prof -> $CPU_PROFILE_OUTPUT_PATH"
     mkdir -p "$(dirname "$CPU_PROFILE_OUTPUT_PATH")"
     docker cp "$container:/data/cpu.prof" "$CPU_PROFILE_OUTPUT_PATH"
 fi
 
 if [[ "$PROFILE_MEMORY" = true ]]; then
+    echo "Copying $container_short_id:/data/memory.prof -> $MEMORY_PROFILE_OUTPUT_PATH"
     mkdir -p "$(dirname "$MEMORY_PROFILE_OUTPUT_PATH")"
     docker cp "$container:/data/memory.prof" "$MEMORY_PROFILE_OUTPUT_PATH"
 fi
