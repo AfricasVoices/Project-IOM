@@ -48,6 +48,7 @@ CMD="pipenv run $PROFILE_CPU_CMD python -u fetch_raw_data.py \
 container="$(docker container create ${SYS_PTRACE_CAPABILITY} -w /app "$IMAGE_NAME" /bin/bash -c "$CMD")"
 container_short_hash=${container:0:7}
 
+# Copy input data into the container
 echo "Copying $INPUT_GOOGLE_CLOUD_CREDENTIALS -> $container_short_hash:/credentials/google-cloud-credentials.json"
 docker cp "$INPUT_GOOGLE_CLOUD_CREDENTIALS" "$container:/credentials/google-cloud-credentials.json"
 
