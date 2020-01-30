@@ -231,10 +231,12 @@ class PipelineConfiguration(object):
                    raw_field_fold_strategy=FoldStrategies.assert_equal)
     ]
 
-    def __init__(self, raw_data_sources, phone_number_uuid_table, timestamp_remappings,
+    def __init__(self, pipeline_name, raw_data_sources, phone_number_uuid_table, timestamp_remappings,
                  rapid_pro_key_remappings, project_start_date, project_end_date, filter_test_messages, move_ws_messages,
                  memory_profile_upload_url_prefix, data_archive_upload_url_prefix, drive_upload=None):
         """
+        :param pipeline_name: The name of this pipeline.
+        :type pipeline_name: str
         :param raw_data_sources: List of sources to pull the various raw run files from.
         :type raw_data_sources: list of RawDataSource
         :param phone_number_uuid_table: Configuration for the Firestore phone number <-> uuid table.
@@ -259,6 +261,7 @@ class PipelineConfiguration(object):
                              If None, does not upload to Google Drive.
         :type drive_upload: DriveUploadPaths | None
         """
+        self.pipeline_name = pipeline_name
         self.raw_data_sources = raw_data_sources
         self.phone_number_uuid_table = phone_number_uuid_table
         self.timestamp_remappings = timestamp_remappings
@@ -275,6 +278,8 @@ class PipelineConfiguration(object):
 
     @classmethod
     def from_configuration_dict(cls, configuration_dict):
+        pipeline_name = configuration_dict["PipelineName"]
+
         raw_data_sources = []
         for raw_data_source in configuration_dict["RawDataSources"]:
             if raw_data_source["SourceType"] == "RapidPro":
@@ -311,7 +316,7 @@ class PipelineConfiguration(object):
         memory_profile_upload_url_prefix = configuration_dict["MemoryProfileUploadURLPrefix"]
         data_archive_upload_url_prefix = configuration_dict["DataArchiveUploadURLPrefix"]
 
-        return cls(raw_data_sources, phone_number_uuid_table, timestamp_remappings,
+        return cls(pipeline_name, raw_data_sources, phone_number_uuid_table, timestamp_remappings,
                    rapid_pro_key_remappings, project_start_date, project_end_date, filter_test_messages,
                    move_ws_messages, memory_profile_upload_url_prefix, data_archive_upload_url_prefix,
                    drive_upload_paths)
@@ -321,6 +326,8 @@ class PipelineConfiguration(object):
         return cls.from_configuration_dict(json.load(f))
 
     def validate(self):
+        validators.validate_string(self.pipeline_name, "pipeline_name")
+
         validators.validate_list(self.raw_data_sources, "raw_data_sources")
         for i, raw_data_source in enumerate(self.raw_data_sources):
             assert isinstance(raw_data_source, RawDataSource), f"raw_data_sources[{i}] is not of type of RawDataSource"

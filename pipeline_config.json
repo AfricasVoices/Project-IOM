@@ -1,4 +1,5 @@
 {
+  "PipelineName": "IOM",
   "RawDataSources": [
     {
       "SourceType": "RapidPro",

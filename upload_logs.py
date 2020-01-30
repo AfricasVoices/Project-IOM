@@ -36,6 +36,8 @@ if __name__ == "__main__":
     log.info("Loading Pipeline Configuration File...")
     with open(pipeline_configuration_file_path) as f:
         pipeline_configuration = PipelineConfiguration.from_configuration_file(f)
+    Logger.set_project_name(pipeline_configuration.pipeline_name)
+    log.debug(f"Pipeline name is {pipeline_configuration.pipeline_name}")
         
     memory_profile_upload_location = f"{pipeline_configuration.memory_profile_upload_url_prefix}{run_id}.profile"
     log.info(f"Uploading the memory profile from {memory_profile_file_path} to "
