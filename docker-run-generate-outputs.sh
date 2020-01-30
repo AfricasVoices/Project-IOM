@@ -2,7 +2,8 @@
 
 set -e
 
-IMAGE_NAME=iom-generate-outputs
+PROJECT_NAME="$(<configuration/docker_image_project_name.txt)"
+IMAGE_NAME=$PROJECT_NAME-generate-outputs
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
