@@ -33,7 +33,8 @@
       "SurveyFlowNames": [
         "csap_s04_demog",
         "csap_s05_demog",
-        "csap_s06_demog"
+        "csap_s06_demog",
+        "csap_s06_evaluation"
       ],
       "TestContactUUIDs": [
         "61e74e0b-1b4a-41fe-9e78-712f2a048f4e",
@@ -121,7 +122,12 @@
     {"RapidProKey": "Recently_Displaced (Text) - csap_s06_demog", "PipelineKey": "recently_displaced_raw"},
     {"RapidProKey": "Recently_Displaced (Time) - csap_s06_demog", "PipelineKey": "recently_displaced_time"},
     {"RapidProKey": "Idp_Camp (Text) - csap_s06_demog", "PipelineKey": "in_idp_camp_raw"},
-    {"RapidProKey": "Idp_Camp (Time) - csap_s06_demog", "PipelineKey": "in_idp_camp_time"}
+    {"RapidProKey": "Idp_Camp (Time) - csap_s06_demog", "PipelineKey": "in_idp_camp_time"},
+
+    {"RapidProKey": "Csap_S06_Have_Voice (Text) - csap_s06_evaluation", "PipelineKey": "have_voice_raw"},
+    {"RapidProKey": "Csap_S06_Have_Voice (Time) - csap_s06_evaluation", "PipelineKey": "have_voice_time"},
+    {"RapidProKey": "Csap_S06_Suggestions (Text) - csap_s06_evaluation", "PipelineKey": "suggestions_raw"},
+    {"RapidProKey": "Csap_S06_Suggestions (Time) - csap_s06_evaluation", "PipelineKey": "suggestions_time"}
   ],
   "ProjectStartDate": "2020-01-19T00:00:00+03:00",
   "ProjectEndDate": "2100-01-01T00:00:00+03:00",
