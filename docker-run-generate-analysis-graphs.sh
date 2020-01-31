@@ -49,21 +49,34 @@ CMD="pipenv run $PROFILE_CPU_CMD python -u generate_analysis_graphs.py \
     /data/messages-traced-data.jsonl /data/individuals-traced-data.jsonl /data/output-graphs
 "
 container="$(docker container create ${SYS_PTRACE_CAPABILITY} -w /app "$IMAGE_NAME" /bin/bash -c "$CMD")"
+echo "Created container $container"
+container_short_id=${container:0:7}
+
 
 # Copy input data into the container
+echo "Copying $INPUT_PIPELINE_CONFIGURATION -> $container_short_id:/data/pipeline_configuration.json"
 docker cp "$INPUT_PIPELINE_CONFIGURATION" "$container:/data/pipeline_configuration.json"
+
+echo "Copying $INPUT_GOOGLE_CLOUD_CREDENTIALS -> $container_short_id:/credentials/google-cloud-credentials.json"
 docker cp "$INPUT_GOOGLE_CLOUD_CREDENTIALS" "$container:/credentials/google-cloud-credentials.json"
+
+echo "Copying $INPUT_MESSAGES_TRACED_DATA -> $container_short_id:/data/messages-traced-data.jsonl"
 docker cp "$INPUT_MESSAGES_TRACED_DATA" "$container:/data/messages-traced-data.jsonl"
+
+echo "Copying $INPUT_INDIVIDUALS_TRACED_DATA -> $container_short_id:/data/individuals-traced-data.jsonl"
 docker cp "$INPUT_INDIVIDUALS_TRACED_DATA" "$container:/data/individuals-traced-data.jsonl"
 
 # Run the container
+echo "Starting container $container_short_id"
 docker start -a -i "$container"
 
 # Copy the output data back out of the container
+echo "Copying $container_short_id:/data/output-graphs/. -> $OUTPUT_DIR"
 mkdir -p "$OUTPUT_DIR"
 docker cp "$container:/data/output-graphs/." "$OUTPUT_DIR"
 
 if [[ "$PROFILE_CPU" = true ]]; then
+    echo "Copying $container_short_id:/data/cpu.prof -> $CPU_PROFILE_OUTPUT_PATH"
     mkdir -p "$(dirname "$CPU_PROFILE_OUTPUT_PATH")"
     docker cp "$container:/data/cpu.prof" "$CPU_PROFILE_OUTPUT_PATH"
 fi

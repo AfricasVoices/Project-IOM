@@ -29,14 +29,24 @@ CMD="pipenv run python -u upload_logs.py \
     \"$RUN_ID\" /data/memory.profile /data/data-archive.tar.gzip
 "
 container="$(docker container create -w /app "$IMAGE_NAME" /bin/bash -c "$CMD")"
+echo "Created container $container"
+container_short_id=${container:0:7}
 
 # Copy input data into the container
+echo "Copying $INPUT_PIPELINE_CONFIGURATION -> $container_short_id:/data/pipeline_configuration.json"
 docker cp "$INPUT_PIPELINE_CONFIGURATION" "$container:/data/pipeline_configuration.json"
+
+echo "Copying $INPUT_GOOGLE_CLOUD_CREDENTIALS -> $container_short_id:/credentials/google-cloud-credentials.json"
 docker cp "$INPUT_GOOGLE_CLOUD_CREDENTIALS" "$container:/credentials/google-cloud-credentials.json"
+
+echo "Copying $INPUT_MEMORY_PROFILE -> $container_short_id:/data/memory.profile"
 docker cp "$INPUT_MEMORY_PROFILE" "$container:/data/memory.profile"
+
+echo "Copying $INPUT_DATA_ARCHIVE -> $container_short_id:/data/data-archive.tar.gzip"
 docker cp "$INPUT_DATA_ARCHIVE" "$container:/data/data-archive.tar.gzip"
 
 # Run the container
+echo "Starting container $container_short_id"
 docker start -a -i "$container"
 
 # Tear down the container, now that all expected output files have been copied out successfully
