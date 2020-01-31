@@ -3,7 +3,134 @@
   "Name": "S06E02 Reasons",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-12e9b438",
+      "CodeType": "Normal",
+      "DisplayText": "community organization",
+      "NumericValue": 1,
+      "StringValue": "community_organization",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-da00dc43",
+      "CodeType": "Normal",
+      "DisplayText": "government to get involved",
+      "NumericValue": 2,
+      "StringValue": "government_to_get_involved",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-515a0b02",
+      "CodeType": "Normal",
+      "DisplayText": "adherence to religion",
+      "NumericValue": 3,
+      "StringValue": "adherence_to_religion",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-862ae165",
+      "CodeType": "Normal",
+      "DisplayText": "cooperation between government and citizens",
+      "NumericValue": 4,
+      "StringValue": "cooperation_between_government_and_citizens",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-046c745a",
+      "CodeType": "Normal",
+      "DisplayText": "through traditional elders",
+      "NumericValue": 5,
+      "StringValue": "through_traditional_elders",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-f21bede2",
+      "CodeType": "Normal",
+      "DisplayText": "compromise",
+      "NumericValue": 6,
+      "StringValue": "compromise",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-d3f09365",
+      "CodeType": "Normal",
+      "DisplayText": "reconciliation",
+      "NumericValue": 7,
+      "StringValue": "reconciliation",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-c305942b",
+      "CodeType": "Normal",
+      "DisplayText": "stop discrimination/clannism",
+      "NumericValue": 8,
+      "StringValue": "stop_discrimination_clannism",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-c477baa3",
+      "CodeType": "Normal",
+      "DisplayText": "promote understanding",
+      "NumericValue": 9,
+      "StringValue": "promote_understanding",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-01f01ac3",
+      "CodeType": "Normal",
+      "DisplayText": "fair resolutions",
+      "NumericValue": 10,
+      "StringValue": "fair_resolutions",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-7a16b30f",
+      "CodeType": "Normal",
+      "DisplayText": "ensure peace",
+      "NumericValue": 11,
+      "StringValue": "ensure_peace",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-29b20f5c",
+      "CodeType": "Normal",
+      "DisplayText": "dialogue/communication",
+      "NumericValue": 12,
+      "StringValue": "dialogue_communication",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-798912be",
+      "CodeType": "Normal",
+      "DisplayText": "better government",
+      "NumericValue": 13,
+      "StringValue": "better_government",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-0ae94f9d",
+      "CodeType": "Normal",
+      "DisplayText": "understand the cause of conflict",
+      "NumericValue": 14,
+      "StringValue": "understand_the_cause_of_conflict",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-591afdea",
+      "CodeType": "Normal",
+      "DisplayText": "stop government interference",
+      "NumericValue": 15,
+      "StringValue": "stop_government_interference",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-a60c6169",
+      "CodeType": "Normal",
+      "DisplayText": "other",
+      "NumericValue": 16,
+      "StringValue": "other",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
