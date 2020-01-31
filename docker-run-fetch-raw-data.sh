@@ -47,20 +47,30 @@ CMD="pipenv run $PROFILE_CPU_CMD python -u fetch_raw_data.py \
     /data/pipeline-configuration.json /data/Raw\ Data
 "
 container="$(docker container create ${SYS_PTRACE_CAPABILITY} -w /app "$IMAGE_NAME" /bin/bash -c "$CMD")"
+echo "Created container $container"
+container_short_id=${container:0:7}
 
 # Copy input data into the container
+echo "Copying $INPUT_GOOGLE_CLOUD_CREDENTIALS -> $container_short_id:/credentials/google-cloud-credentials.json"
 docker cp "$INPUT_GOOGLE_CLOUD_CREDENTIALS" "$container:/credentials/google-cloud-credentials.json"
+
+echo "Copying $INPUT_PIPELINE_CONFIGURATION -> $container_short_id:/data/pipeline-configuration.json"
 docker cp "$INPUT_PIPELINE_CONFIGURATION" "$container:/data/pipeline-configuration.json"
+
 mkdir -p "$OUTPUT_RAW_DATA_DIR"
+echo "Copying $OUTPUT_RAW_DATA_DIR/. -> $container_short_id:/data/Raw Data/"
 docker cp "$OUTPUT_RAW_DATA_DIR/." "$container:/data/Raw Data/"
 
 # Run the container
+echo "Starting container $container_short_id"
 docker start -a -i "$container"
 
 # Copy the output data back out of the container
+echo "Copying $container_short_id:/data/Raw Data/. -> $OUTPUT_RAW_DATA_DIR"
 docker cp "$container:/data/Raw Data/." "$OUTPUT_RAW_DATA_DIR"
 
 if [[ "$PROFILE_CPU" = true ]]; then
+    echo "Copying $container_short_id:/data/cpu.prof -> $CPU_PROFILE_OUTPUT_PATH"
     mkdir -p "$(dirname "$CPU_PROFILE_OUTPUT_PATH")"
     docker cp "$container:/data/cpu.prof" "$CPU_PROFILE_OUTPUT_PATH"
 fi
