@@ -130,7 +130,7 @@
     {"RapidProKey": "Csap_S06_Suggestions (Time) - csap_s06_evaluation", "PipelineKey": "suggestions_time"}
   ],
   "ProjectStartDate": "2020-01-19T00:00:00+03:00",
-  "ProjectEndDate": "2100-01-01T00:00:00+03:00",
+  "ProjectEndDate": "2020-02-03T10:30+03:00",
   "FilterTestMessages": true,
   "MoveWSMessages": false,
   "DriveUpload": {
