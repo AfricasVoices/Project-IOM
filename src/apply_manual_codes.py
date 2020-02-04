@@ -8,8 +8,7 @@ from core_data_modules.traced_data import Metadata
 from core_data_modules.traced_data.io import TracedDataCodaV2IO
 
 from src.lib import PipelineConfiguration
-from src.lib.code_schemes import CodeSchemes
-from src.lib.pipeline_configuration import CodingModes
+from src.lib.configuration_objects import CodingModes
 
 log = Logger(__name__)
 
@@ -38,7 +37,7 @@ class ApplyManualCodes(object):
 
                 has_ws_code_in_ws_scheme = False
                 if f"{plan.raw_field}_correct_dataset" in td:
-                    ws_code = CodeSchemes.WS_CORRECT_DATASET.get_code_with_code_id(
+                    ws_code = PipelineConfiguration.WS_CORRECT_DATASET_SCHEME.get_code_with_code_id(
                         td[f"{plan.raw_field}_correct_dataset"]["CodeID"])
                     has_ws_code_in_ws_scheme = ws_code.code_type == "Normal" or ws_code.control_code == Codes.NOT_CODED
 
@@ -46,8 +45,8 @@ class ApplyManualCodes(object):
                     log.warning(f"Coding Error: {plan.raw_field}: {td[plan.raw_field]}")
                     coding_error_dict[f"{plan.raw_field}_correct_dataset"] = \
                         CleaningUtils.make_label_from_cleaner_code(
-                            CodeSchemes.WS_CORRECT_DATASET,
-                            CodeSchemes.WS_CORRECT_DATASET.get_code_with_control_code(Codes.CODING_ERROR),
+                            PipelineConfiguration.WS_CORRECT_DATASET_SCHEME,
+                            PipelineConfiguration.WS_CORRECT_DATASET_SCHEME.get_code_with_control_code(Codes.CODING_ERROR),
                             Metadata.get_call_location(),
                         ).to_dict()
 
@@ -103,7 +102,7 @@ class ApplyManualCodes(object):
 
                 TracedDataCodaV2IO.import_coda_2_to_traced_data_iterable(
                     user, data, plan.id_field,
-                    {f"{plan.raw_field}_correct_dataset": CodeSchemes.WS_CORRECT_DATASET}, f
+                    {f"{plan.raw_field}_correct_dataset": PipelineConfiguration.WS_CORRECT_DATASET_SCHEME}, f
                 )
             finally:
                 if f is not None:

@@ -3,7 +3,7 @@ import time
 from core_data_modules.cleaners import Codes
 from core_data_modules.traced_data import Metadata
 
-from src.lib.pipeline_configuration import CodingModes
+from src.lib.configuration_objects import CodingModes
 
 
 class ConsentUtils(object):

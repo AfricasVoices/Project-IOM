@@ -8,7 +8,7 @@ from core_data_modules.traced_data.util.fold_traced_data import FoldStrategies
 from core_data_modules.util import TimeUtils
 
 from src.lib import PipelineConfiguration, ConsentUtils
-from src.lib.pipeline_configuration import CodingModes
+from src.lib.configuration_objects import CodingModes
 
 
 class AnalysisFile(object):

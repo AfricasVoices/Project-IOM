@@ -6,7 +6,7 @@ from core_data_modules.cleaners.location_tools import SomaliaLocations
 from core_data_modules.data_models.code_scheme import CodeTypes
 from core_data_modules.traced_data import Metadata
 
-from src.lib.code_schemes import CodeSchemes
+from configuration.code_schemes import CodeSchemes
 
 
 def make_location_code(scheme, clean_value):
