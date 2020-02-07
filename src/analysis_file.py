@@ -80,7 +80,7 @@ class AnalysisFile(object):
                             analysis_dict[f"{cc.analysis_file_key}{code_string_value}"] = Codes.MATRIX_1
 
                         for key in show_matrix_keys:
-                            if key not in analysis_dict:
+                            if key not in analysis_dict and (key.endswith(Codes.STOP) or key.endswith(Codes.TRUE_MISSING) or key.endswith(Codes.NOT_CODED)):
                                 analysis_dict[key] = Codes.MATRIX_0
             td.append_data(analysis_dict,
                            Metadata(user, Metadata.get_call_location(), TimeUtils.utc_now_as_iso_string()))
