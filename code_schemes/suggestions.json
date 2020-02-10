@@ -3,7 +3,70 @@
   "Name": "Suggestions",
   "Version": "0.0.0.1",
   "Codes": [
-
+    {
+      "CodeID": "code-947fbb81",
+      "CodeType": "Normal",
+      "DisplayText": "improve radio stations",
+      "NumericValue": 1,
+      "StringValue": "improve_radio_stations",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-001920d7",
+      "CodeType": "Normal",
+      "DisplayText": "consistent radio shows",
+      "NumericValue": 2,
+      "StringValue": "consistent_radio_shows",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-0b425e97",
+      "CodeType": "Normal",
+      "DisplayText": "improved participation",
+      "NumericValue": 3,
+      "StringValue": "improved_participation",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-3a98942c",
+      "CodeType": "Normal",
+      "DisplayText": "increase frequency of shows",
+      "NumericValue": 4,
+      "StringValue": "increase_frequency_of_shows",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-1681eb40",
+      "CodeType": "Normal",
+      "DisplayText": "honesty from radio broadcast",
+      "NumericValue": 5,
+      "StringValue": "honesty_from_radio_broadcast",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-2e25cf0e",
+      "CodeType": "Normal",
+      "DisplayText": "improve quality of hage",
+      "NumericValue": 6,
+      "StringValue": "improve_quality_of_hage",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-8dd3d129",
+      "CodeType": "Normal",
+      "DisplayText": "more religious messaging",
+      "NumericValue": 7,
+      "StringValue": "more_religious_messaging",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-84b1cfa0",
+      "CodeType": "Normal",
+      "DisplayText": "other",
+      "NumericValue": 8,
+      "StringValue": "other",
+      "VisibleInCoda": true
+    },
     {
       "CodeID": "code-NA-f93d3eb7",
       "CodeType": "Control",
