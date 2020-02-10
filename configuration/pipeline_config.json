@@ -132,7 +132,7 @@
   "ProjectStartDate": "2020-01-19T00:00:00+03:00",
   "ProjectEndDate": "2020-02-03T10:30+03:00",
   "FilterTestMessages": true,
-  "MoveWSMessages": false,
+  "MoveWSMessages": true,
   "DriveUpload": {
     "DriveCredentialsFileURL": "gs://avf-credentials/pipeline-runner-service-acct-avf-data-core-64cc71459fe7.json",
     "ProductionUploadPath": "iom_analysis_outputs/csap_s06_production.csv",
