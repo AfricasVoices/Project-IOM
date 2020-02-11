@@ -35,14 +35,14 @@ INPUT_PIPELINE_CONFIGURATION=$3
 OUTPUT_RAW_DATA_DIR=$4
 
 # Build an image for this pipeline stage.
-docker build --build-arg INSTALL_CPU_PROFILER="$PROFILE_CPU" -t "$IMAGE_NAME" .
+docker build -t "$IMAGE_NAME" .
 
 # Create a container from the image that was just built.
 if [[ "$PROFILE_CPU" = true ]]; then
-    PROFILE_CPU_CMD="pyflame -o /data/cpu.prof -t"
+    PROFILE_CPU_CMD="-m pyinstrument -o /data/cpu.prof --renderer html --"
     SYS_PTRACE_CAPABILITY="--cap-add SYS_PTRACE"
 fi
-CMD="pipenv run $PROFILE_CPU_CMD python -u fetch_raw_data.py \
+CMD="pipenv run python -u $PROFILE_CPU_CMD fetch_raw_data.py \
     \"$USER\" /credentials/google-cloud-credentials.json \
     /data/pipeline-configuration.json /data/Raw\ Data
 "
