@@ -5,7 +5,6 @@ from storage.google_cloud import google_cloud_utils
 
 from src.lib import PipelineConfiguration
 
-Logger.set_project_name("IOM")
 log = Logger(__name__)
 
 if __name__ == "__main__":
