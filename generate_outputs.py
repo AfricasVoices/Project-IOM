@@ -1,12 +1,8 @@
 import argparse
-import json
-import os
 
 from core_data_modules.logging import Logger
 from core_data_modules.traced_data.io import TracedDataJsonIO
 from core_data_modules.util import IOUtils
-from storage.google_cloud import google_cloud_utils
-from storage.google_drive import drive_client_wrapper
 
 from src import LoadData, TranslateRapidProKeys, AutoCode, ProductionFile, \
     ApplyManualCodes, AnalysisFile, WSCorrection
@@ -50,10 +46,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    csv_by_message_drive_path = None
-    csv_by_individual_drive_path = None
-    production_csv_drive_path = None
-
     user = args.user
     google_cloud_credentials_file_path = args.google_cloud_credentials_file_path
     pipeline_configuration_file_path = args.pipeline_configuration_file_path
@@ -75,12 +67,6 @@ if __name__ == "__main__":
         pipeline_configuration = PipelineConfiguration.from_configuration_file(f)
     Logger.set_project_name(pipeline_configuration.pipeline_name)
     log.debug(f"Pipeline name is {pipeline_configuration.pipeline_name}")
-
-    if pipeline_configuration.drive_upload is not None:
-        log.info(f"Downloading Google Drive service account credentials...")
-        credentials_info = json.loads(google_cloud_utils.download_blob_to_string(
-            google_cloud_credentials_file_path, pipeline_configuration.drive_upload.drive_credentials_file_url))
-        drive_client_wrapper.init_client_from_info(credentials_info)
 
     log.info("Loading the raw data...")
     data = LoadData.load_raw_data(user, raw_data_dir, pipeline_configuration)
@@ -117,33 +103,5 @@ if __name__ == "__main__":
     IOUtils.ensure_dirs_exist_for_file(individuals_json_output_path)
     with open(individuals_json_output_path, "w") as f:
         TracedDataJsonIO.export_traced_data_iterable_to_jsonl(individuals_data, f)
-
-    # Upload to Google Drive, if requested.
-    # Note: This should happen as late as possible in order to reduce the risk of the remainder of the pipeline failing
-    # after a Drive upload has occurred. Failures could result in inconsistent outputs or outputs with no
-    # traced data log.
-    if pipeline_configuration.drive_upload is not None:
-        log.info("Uploading CSVs to Google Drive...")
-
-        production_csv_drive_dir = os.path.dirname(pipeline_configuration.drive_upload.production_upload_path)
-        production_csv_drive_file_name = os.path.basename(pipeline_configuration.drive_upload.production_upload_path)
-        drive_client_wrapper.update_or_create(production_csv_output_path, production_csv_drive_dir,
-                                              target_file_name=production_csv_drive_file_name,
-                                              target_folder_is_shared_with_me=True)
-
-        messages_csv_drive_dir = os.path.dirname(pipeline_configuration.drive_upload.messages_upload_path)
-        messages_csv_drive_file_name = os.path.basename(pipeline_configuration.drive_upload.messages_upload_path)
-        drive_client_wrapper.update_or_create(csv_by_message_output_path, messages_csv_drive_dir,
-                                              target_file_name=messages_csv_drive_file_name,
-                                              target_folder_is_shared_with_me=True)
-
-        individuals_csv_drive_dir = os.path.dirname(pipeline_configuration.drive_upload.individuals_upload_path)
-        individuals_csv_drive_file_name = os.path.basename(pipeline_configuration.drive_upload.individuals_upload_path)
-        drive_client_wrapper.update_or_create(csv_by_individual_output_path, individuals_csv_drive_dir,
-                                              target_file_name=individuals_csv_drive_file_name,
-                                              target_folder_is_shared_with_me=True)
-    else:
-        log.info("Skipping uploading to Google Drive (because the pipeline configuration json does not contain the key "
-                 "'DriveUploadPaths')")
 
     log.info("Python script complete")
