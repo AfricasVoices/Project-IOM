@@ -1,3 +1,4 @@
+import csv
 from collections import OrderedDict
 
 from core_data_modules.cleaners import Codes
@@ -14,39 +15,52 @@ from src.lib.pipeline_configuration import CodingModes
 class AnalysisFile(object):
     @staticmethod
     def export_to_csv(user, data, csv_path, export_keys, consent_withdrawn_key):
-        # Convert codes to their string/matrix values
-        for td in data:
-            analysis_dict = dict()
-            for plan in PipelineConfiguration.RQA_CODING_PLANS + PipelineConfiguration.SURVEY_CODING_PLANS:
-                for cc in plan.coding_configurations:
-                    if cc.analysis_file_key is None:
-                        continue
-
-                    if cc.coding_mode == CodingModes.SINGLE:
-                        analysis_dict[cc.analysis_file_key] = \
-                            cc.code_scheme.get_code_with_code_id(td[cc.coded_field]["CodeID"]).string_value
-                    else:
-                        assert cc.coding_mode == CodingModes.MULTIPLE
-                        show_matrix_keys = []
-                        for code in cc.code_scheme.codes:
-                            show_matrix_keys.append(f"{cc.analysis_file_key}{code.string_value}")
-
-                        for label in td[cc.coded_field]:
-                            code_string_value = cc.code_scheme.get_code_with_code_id(label["CodeID"]).string_value
-                            analysis_dict[f"{cc.analysis_file_key}{code_string_value}"] = Codes.MATRIX_1
-
-                        for key in show_matrix_keys:
-                            if key not in analysis_dict:
-                                analysis_dict[key] = Codes.MATRIX_0
-            td.append_data(analysis_dict,
-                           Metadata(user, Metadata.get_call_location(), TimeUtils.utc_now_as_iso_string()))
-
-        # Hide data from participants who opted out
-        ConsentUtils.set_stopped(user, data, consent_withdrawn_key, additional_keys=export_keys)
-
         with open(csv_path, "w") as f:
-            TracedDataCSVIO.export_traced_data_iterable_to_csv(data, f, headers=export_keys)
+            writer = csv.DictWriter(f, fieldnames=export_keys, lineterminator="\n")
+            writer.writeheader()
 
+            for td in data:
+                analysis_dict = dict()
+
+                # If consent was withdrawn, export the uid and consent_withdrawn_key.
+                # Export "STOP" for every other variable.
+                if td[consent_withdrawn_key] == Codes.TRUE:
+                    analysis_dict = {k: Codes.STOP for k in export_keys}
+                    analysis_dict["uid"] = td["uid"]
+                    analysis_dict[consent_withdrawn_key] = td[consent_withdrawn_key]
+                    writer.writerow(analysis_dict)
+                    continue
+
+                # Convert codes to their string/matrix values for export.
+                for plan in PipelineConfiguration.RQA_CODING_PLANS + PipelineConfiguration.SURVEY_CODING_PLANS:
+                    for cc in plan.coding_configurations:
+                        if cc.analysis_file_key is None:
+                            continue
+
+                        if cc.coding_mode == CodingModes.SINGLE:
+                            analysis_dict[cc.analysis_file_key] = \
+                                cc.code_scheme.get_code_with_code_id(td[cc.coded_field]["CodeID"]).string_value
+                        else:
+                            assert cc.coding_mode == CodingModes.MULTIPLE
+                            show_matrix_keys = []
+                            for code in cc.code_scheme.codes:
+                                show_matrix_keys.append(f"{cc.analysis_file_key}{code.string_value}")
+
+                            for label in td[cc.coded_field]:
+                                code_string_value = cc.code_scheme.get_code_with_code_id(label["CodeID"]).string_value
+                                analysis_dict[f"{cc.analysis_file_key}{code_string_value}"] = Codes.MATRIX_1
+
+                            for key in show_matrix_keys:
+                                if key not in analysis_dict:
+                                    analysis_dict[key] = Codes.MATRIX_0
+
+                # Prepare all the other values, which don't need converting to strings, for export.
+                for key in export_keys:
+                    if key not in analysis_dict and key in td:
+                        analysis_dict[key] = td[key]
+
+                writer.writerow(analysis_dict)
+                                    
     @classmethod
     def generate(cls, user, data, csv_by_message_output_path, csv_by_individual_output_path):
         # Serializer is currently overflowing
@@ -92,6 +106,10 @@ class AnalysisFile(object):
         folded_data = FoldTracedData.fold_iterable_of_traced_data(
             user, to_be_folded, lambda td: td["uid"], fold_strategies
         )
+
+        # Hide data from participants who opted out
+        ConsentUtils.set_stopped(user, data, consent_withdrawn_key)
+        ConsentUtils.set_stopped(user, folded_data, consent_withdrawn_key)
 
         cls.export_to_csv(user, data, csv_by_message_output_path, export_keys, consent_withdrawn_key)
         cls.export_to_csv(user, folded_data, csv_by_individual_output_path, export_keys, consent_withdrawn_key)
