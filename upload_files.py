@@ -8,7 +8,6 @@ from storage.google_drive import drive_client_wrapper
 
 from src.lib import PipelineConfiguration
 
-Logger.set_project_name("IOM")
 log = Logger(__name__)
 
 if __name__ == "__main__":

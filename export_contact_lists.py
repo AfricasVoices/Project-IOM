@@ -12,7 +12,6 @@ from storage.google_cloud import google_cloud_utils
 from src.lib import PipelineConfiguration
 from src.lib.code_schemes import CodeSchemes
 
-Logger.set_project_name("IOM")
 log = Logger(__name__)
 
 IOM_DISTRICTS = {SomaliaCodes.CABUDWAAQ, SomaliaCodes.GAALKACYO, SomaliaCodes.DHUUSAMARREEB}
@@ -43,6 +42,8 @@ if __name__ == "__main__":
     log.info("Loading Pipeline Configuration File...")
     with open(pipeline_configuration_file_path) as f:
         pipeline_configuration = PipelineConfiguration.from_configuration_file(f)
+    Logger.set_project_name(pipeline_configuration.pipeline_name)
+    log.debug(f"Pipeline name is {pipeline_configuration.pipeline_name}")
 
     log.info("Downloading Firestore UUID Table credentials...")
     firestore_uuid_table_credentials = json.loads(google_cloud_utils.download_blob_to_string(
