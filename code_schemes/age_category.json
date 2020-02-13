@@ -6,34 +6,23 @@
     {
       "CodeID": "code-6790828e",
       "CodeType": "Normal",
-      "DisplayText": "10 to 14",
+      "DisplayText": "10 to 17",
       "NumericValue": 1,
-      "StringValue": "10_to_14",
+      "StringValue": "10_to_17",
       "VisibleInCoda": true,
       "MatchValues": [
-        "10 to 14"
-      ]
-    },
-    {
-      "CodeID": "code-dc66377c",
-      "CodeType": "Normal",
-      "DisplayText": "15 to 18",
-      "NumericValue": 1,
-      "StringValue": "15_to_18",
-      "VisibleInCoda": true,
-      "MatchValues": [
-        "15 to 18"
+        "10 to 17"
       ]
     },
     {
       "CodeID": "code-1b52fcfe",
       "CodeType": "Normal",
-      "DisplayText": "19 to 35",
+      "DisplayText": "18 to 35",
       "NumericValue": 1,
-      "StringValue": "19_to_35",
+      "StringValue": "18_to_35",
       "VisibleInCoda": true,
       "MatchValues": [
-        "19 to 35"
+        "18 to 35"
       ]
     },
     {
