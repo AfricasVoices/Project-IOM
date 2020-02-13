@@ -37,14 +37,14 @@ INPUT_INDIVIDUALS_TRACED_DATA=$5
 OUTPUT_DIR=$6
 
 # Build an image for this pipeline stage.
-docker build --build-arg INSTALL_CPU_PROFILER="$PROFILE_CPU" -t "$IMAGE_NAME" .
+docker build -t "$IMAGE_NAME" .
 
 # Create a container from the image that was just built.
 if [[ "$PROFILE_CPU" = true ]]; then
-    PROFILE_CPU_CMD="pyflame -o /data/cpu.prof -t"
+    PROFILE_CPU_CMD="-m pyinstrument -o /data/cpu.prof --renderer html --"
     SYS_PTRACE_CAPABILITY="--cap-add SYS_PTRACE"
 fi
-CMD="pipenv run $PROFILE_CPU_CMD python -u generate_analysis_graphs.py \
+CMD="pipenv run python -u $PROFILE_CPU_CMD generate_analysis_graphs.py \
     \"$USER\" /credentials/google-cloud-credentials.json /data/pipeline_configuration.json \
     /data/messages-traced-data.jsonl /data/individuals-traced-data.jsonl /data/output-graphs
 "
