@@ -49,17 +49,17 @@ OUTPUT_INDIVIDUALS_CSV=${11}
 OUTPUT_PRODUCTION_CSV=${12}
 
 # Build an image for this pipeline stage.
-docker build --build-arg INSTALL_CPU_PROFILER="$PROFILE_CPU" --build-arg INSTALL_MEMORY_PROFILER="$PROFILE_MEMORY" -t "$IMAGE_NAME" .
+docker build --build-arg INSTALL_MEMORY_PROFILER="$PROFILE_MEMORY" -t "$IMAGE_NAME" .
 
 # Create a container from the image that was just built.
 if [[ "$PROFILE_CPU" = true ]]; then
-    PROFILE_CPU_CMD="pyflame -o /data/cpu.prof -t"
+    PROFILE_CPU_CMD="-m pyinstrument -o /data/cpu.prof --renderer html --"
     SYS_PTRACE_CAPABILITY="--cap-add SYS_PTRACE"
 fi
 if [[ "$PROFILE_MEMORY" = true ]]; then
     PROFILE_MEMORY_CMD="mprof run -o /data/memory.prof"
 fi
-CMD="pipenv run $PROFILE_CPU_CMD $PROFILE_MEMORY_CMD python -u generate_outputs.py \
+CMD="pipenv run $PROFILE_MEMORY_CMD python -u $PROFILE_CPU_CMD generate_outputs.py \
     \"$USER\" /credentials/google-cloud-credentials.json /data/pipeline_configuration.json \
     /data/raw-data /data/prev-coded \
     /data/output-messages.jsonl /data/output-individuals.jsonl /data/output-icr /data/coded \
@@ -91,7 +91,7 @@ echo "Starting container $container_short_id"
 docker start -a -i "$container"
 
 # Copy the output data back out of the container
-echo "Copying $container_short_id:/data/output-messages.json -> $OUTPUT_MESSAGES_JSONL"
+echo "Copying $container_short_id:/data/output-messages.jsonl -> $OUTPUT_MESSAGES_JSONL"
 mkdir -p "$(dirname "$OUTPUT_MESSAGES_JSONL")"
 docker cp "$container:/data/output-messages.jsonl" "$OUTPUT_MESSAGES_JSONL"
 

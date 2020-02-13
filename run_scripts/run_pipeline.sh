@@ -25,6 +25,8 @@ DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 HASH=$(git rev-parse HEAD)
 RUN_ID="$DATE-$HASH"
 
+echo "Starting run with id '$RUN_ID'"
+
 ./1_coda_get.sh "$CODA_PULL_CREDENTIALS_PATH" "$CODA_TOOLS_ROOT" "$DATA_ROOT"
 
 ./2_fetch_raw_data.sh "$USER" "$AVF_BUCKET_CREDENTIALS_PATH" "$PIPELINE_CONFIGURATION" "$DATA_ROOT"
@@ -38,5 +40,5 @@ RUN_ID="$DATE-$HASH"
 
 ./6_backup_data_root.sh "$DATA_ROOT" "$DATA_BACKUPS_DIR/data-$RUN_ID.tar.gzip"
 
-./7_upload_logs.sh "$USER" "$AVF_BUCKET_CREDENTIALS_PATH" "$PIPELINE_CONFIGURATION" "$RUN_ID" \
+./7_upload_files.sh "$USER" "$AVF_BUCKET_CREDENTIALS_PATH" "$PIPELINE_CONFIGURATION" "$RUN_ID" "$DATA_ROOT" \
     "$PERFORMANCE_LOGS_DIR/memory-$RUN_ID.profile" "$DATA_BACKUPS_DIR/data-$RUN_ID.tar.gzip"
