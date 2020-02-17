@@ -191,7 +191,6 @@ class PipelineConfiguration(object):
                            code_scheme=CodeSchemes.AGE,
                            cleaner=lambda text: PipelineConfiguration.clean_age_with_range_filter(text),
                            coded_field="age_coded",
-                           analysis_file_key="age",
                            fold_strategy=FoldStrategies.assert_label_ids_equal
                        ),
                        CodingConfiguration(
