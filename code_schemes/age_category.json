@@ -17,23 +17,23 @@
     {
       "CodeID": "code-1b52fcfe",
       "CodeType": "Normal",
-      "DisplayText": "18 to 35",
+      "DisplayText": "18 to 34",
       "NumericValue": 1,
-      "StringValue": "18_to_35",
+      "StringValue": "18_to_34",
       "VisibleInCoda": true,
       "MatchValues": [
-        "18 to 35"
+        "18 to 34"
       ]
     },
     {
       "CodeID": "code-30da6495",
       "CodeType": "Normal",
-      "DisplayText": "36 to 99",
+      "DisplayText": "35 to 99",
       "NumericValue": 1,
-      "StringValue": "36_to_99",
+      "StringValue": "35_to_99",
       "VisibleInCoda": true,
       "MatchValues": [
-        "36 to 99"
+        "35 to 99"
       ]
     },
     {
