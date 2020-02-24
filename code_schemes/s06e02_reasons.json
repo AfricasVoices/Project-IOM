@@ -20,27 +20,11 @@
       "VisibleInCoda": true
     },
     {
-      "CodeID": "code-da00dc43",
-      "CodeType": "Normal",
-      "DisplayText": "government to get involved",
-      "NumericValue": 2,
-      "StringValue": "government_to_get_involved",
-      "VisibleInCoda": true
-    },
-    {
       "CodeID": "code-515a0b02",
       "CodeType": "Normal",
       "DisplayText": "adherence to religion",
       "NumericValue": 3,
       "StringValue": "adherence_to_religion",
-      "VisibleInCoda": true
-    },
-    {
-      "CodeID": "code-862ae165",
-      "CodeType": "Normal",
-      "DisplayText": "cooperation between government and citizens",
-      "NumericValue": 4,
-      "StringValue": "cooperation_between_government_and_citizens",
       "VisibleInCoda": true
     },
     {
@@ -145,6 +129,22 @@
       "DisplayText": "DEPRECATED: community organization",
       "NumericValue": 1,
       "StringValue": "DEPRECATED-community_organization",
+      "VisibleInCoda": false
+    },
+    {
+      "CodeID": "code-da00dc43",
+      "CodeType": "Normal",
+      "DisplayText": "DEPRECATED: government to get involved",
+      "NumericValue": 2,
+      "StringValue": "DEPRECATED-government_to_get_involved",
+      "VisibleInCoda": false
+    },
+    {
+      "CodeID": "code-862ae165",
+      "CodeType": "Normal",
+      "DisplayText": "DEPRECATED: cooperation between government and citizens",
+      "NumericValue": 4,
+      "StringValue": "DEPRECATED-cooperation_between_government_and_citizens",
       "VisibleInCoda": false
     },
     {
