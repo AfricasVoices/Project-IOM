@@ -4,11 +4,19 @@
   "Version": "0.0.0.1",
   "Codes": [
     {
-      "CodeID": "code-12e9b438",
+      "CodeID": "code-4c8e7eb3",
       "CodeType": "Normal",
-      "DisplayText": "community organization",
-      "NumericValue": 1,
-      "StringValue": "community_organization",
+      "DisplayText": "led by community",
+      "NumericValue": 17,
+      "StringValue": "led_by_community",
+      "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-4afddf22",
+      "CodeType": "Normal",
+      "DisplayText": "unity",
+      "NumericValue": 18,
+      "StringValue": "unity",
       "VisibleInCoda": true
     },
     {
@@ -130,6 +138,14 @@
       "NumericValue": 16,
       "StringValue": "other",
       "VisibleInCoda": true
+    },
+    {
+      "CodeID": "code-12e9b438",
+      "CodeType": "Normal",
+      "DisplayText": "DEPRECATED: community organization",
+      "NumericValue": 1,
+      "StringValue": "DEPRECATED-community_organization",
+      "VisibleInCoda": false
     },
     {
       "CodeID": "code-NA-f93d3eb7",
