@@ -18,7 +18,7 @@ from storage.google_cloud import google_cloud_utils
 from temba_client.v2 import Contact, Run
 
 from src.lib import PipelineConfiguration, CodeSchemes
-from src.lib.pipeline_configuration import RapidProSource, GCloudBucketSource, ShaqadoonCSVSource
+from src.lib.pipeline_configuration import RapidProSource, GCloudBucketSource, RecoveryCSVSource
 
 log = Logger(__name__)
 
@@ -140,10 +140,10 @@ def fetch_from_gcloud_bucket(google_cloud_credentials_file_path, raw_data_dir, g
                 google_cloud_credentials_file_path, blob_url, traced_runs_output_file)
 
 
-def fetch_from_shaqadoon_csv(user, google_cloud_credentials_file_path, raw_data_dir, phone_number_uuid_table,
-                             shaqadoon_csv_source):
-    log.info("Fetching data from a Shaqadoon CSV...")
-    for blob_url in shaqadoon_csv_source.activation_flow_urls + shaqadoon_csv_source.survey_flow_urls:
+def fetch_from_recovery_csv(user, google_cloud_credentials_file_path, raw_data_dir, phone_number_uuid_table,
+                            recovery_csv_source):
+    log.info("Fetching data from a recovery CSV...")
+    for blob_url in recovery_csv_source.activation_flow_urls + recovery_csv_source.survey_flow_urls:
         flow_name = blob_url.split('/')[-1].split('.')[0]  # Takes the name between the last '/' and the '.csv' ending 
         traced_runs_output_path = f"{raw_data_dir}/{flow_name}.jsonl"
         if os.path.exists(traced_runs_output_path):
@@ -182,7 +182,7 @@ def fetch_from_shaqadoon_csv(user, google_cloud_credentials_file_path, raw_data_
             )
         log.info("Converted the recovered messages to TracedData")
 
-        if blob_url in shaqadoon_csv_source.activation_flow_urls:
+        if blob_url in recovery_csv_source.activation_flow_urls:
             label_somalia_operator(user, traced_runs, phone_number_uuid_table)
 
         log.info(f"Exporting {len(traced_runs)} TracedData items to {traced_runs_output_path}...")
@@ -221,9 +221,9 @@ def main(user, google_cloud_credentials_file_path, pipeline_configuration_file_p
                                  raw_data_source)
         elif isinstance(raw_data_source, GCloudBucketSource):
             fetch_from_gcloud_bucket(google_cloud_credentials_file_path, raw_data_dir, raw_data_source)
-        elif isinstance(raw_data_source, ShaqadoonCSVSource):
-            fetch_from_shaqadoon_csv(user, google_cloud_credentials_file_path, raw_data_dir, phone_number_uuid_table,
-                                     raw_data_source)
+        elif isinstance(raw_data_source, RecoveryCSVSource):
+            fetch_from_recovery_csv(user, google_cloud_credentials_file_path, raw_data_dir, phone_number_uuid_table,
+                                    raw_data_source)
 
         else:
             assert False, f"Unknown raw_data_source type {type(raw_data_source)}"
