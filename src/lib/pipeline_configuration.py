@@ -324,11 +324,11 @@ class PipelineConfiguration(object):
                 raw_data_sources.append(RapidProSource.from_configuration_dict(raw_data_source))
             elif raw_data_source["SourceType"] == "GCloudBucket":
                 raw_data_sources.append(GCloudBucketSource.from_configuration_dict(raw_data_source))
-            elif raw_data_source["SourceType"] == "ShaqadoonCSV":
-                raw_data_sources.append(ShaqadoonCSVSource.from_configuration_dict(raw_data_source))
+            elif raw_data_source["SourceType"] == "RecoveryCSV":
+                raw_data_sources.append(RecoveryCSVSource.from_configuration_dict(raw_data_source))
             else:
                 assert False, f"Unknown SourceType '{raw_data_source['SourceType']}'. " \
-                              f"Must be 'RapidPro', 'GCloudBucket', or 'ShaqadoonCSV'."
+                              f"Must be 'RapidPro', 'GCloudBucket', or 'RecoveryCSV'."
 
         phone_number_uuid_table = PhoneNumberUuidTable.from_configuration_dict(
             configuration_dict["PhoneNumberUuidTable"])
@@ -507,7 +507,7 @@ class GCloudBucketSource(AbstractRemoteURLSource):
         super().__init__(activation_flow_urls, survey_flow_urls)
 
 
-class ShaqadoonCSVSource(AbstractRemoteURLSource):
+class RecoveryCSVSource(AbstractRemoteURLSource):
     def __init__(self, activation_flow_urls, survey_flow_urls):
         super().__init__(activation_flow_urls, survey_flow_urls)
 
